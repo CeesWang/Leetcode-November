@@ -25,7 +25,7 @@ class Solution {
 class Solution {
     public int smallestDivisor(int[] nums, int threshold) {
         int ans = 1000000;
-        int begin = 0;
+        int begin = 1;
         int end = 1000000;
         while (begin <= end) {
             int mid = begin + (end - begin) / 2;
@@ -47,9 +47,10 @@ class Solution {
             if (runningSum > threshold) {
                 return runningSum;
             }
-            runningSum += (int) Math.ceil(num * 1.0/divisor);
+            runningSum += ( (num - 1) / divisor + 1);
         }
         return runningSum;    
     }
 }
+
 
