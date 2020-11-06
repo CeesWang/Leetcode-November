@@ -22,3 +22,34 @@ class Solution {
     }
 }
 
+class Solution {
+    public int smallestDivisor(int[] nums, int threshold) {
+        int ans = 1000000;
+        int begin = 0;
+        int end = 1000000;
+        while (begin <= end) {
+            int mid = begin + (end - begin) / 2;
+            int sum = divisorSum(nums, mid, threshold);
+            if (sum <= threshold) {
+                ans = Math.min(ans, mid);
+                end = mid - 1;
+            }
+            else {
+                begin = mid + 1;
+            }
+        }
+        return ans;
+    }
+    
+    public int divisorSum (int [] nums, int divisor, int threshold) {
+        int runningSum = 0;
+        for (int num : nums) {
+            if (runningSum > threshold) {
+                return runningSum;
+            }
+            runningSum += (int) Math.ceil(num * 1.0/divisor);
+        }
+        return runningSum;    
+    }
+}
+
