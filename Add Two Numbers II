@@ -1,0 +1,85 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        Stack<ListNode> stack1 = new Stack<>();
+        Stack<ListNode> stack2 = new Stack<>();
+        Stack<ListNode> stackCombined = new Stack<>();
+        ListNode combinedList = new ListNode();
+        ListNode temp = combinedList;
+        while (l1 != null) {
+            stack1.push(l1);
+            l1 = l1.next;
+        }
+        while (l2 != null) {
+            stack2.push(l2);
+            l2 = l2.next;
+        }
+        boolean carry = false;
+        while (!stack1.isEmpty() && !stack2.isEmpty()) {
+            ListNode node = new ListNode();
+            int sum = stack1.pop().val + stack2.pop().val;
+             if (carry) {
+                sum += 1;
+            }
+            if (sum >= 10) {
+                sum -= 10;
+                carry = true;
+            }
+            else {
+                carry = false;
+            }
+            node.val = sum;
+            stackCombined.push(node);
+        }
+        while (!stack1.isEmpty()) {
+            ListNode node = new ListNode();
+            int val = stack1.pop().val;
+            if (carry) {
+                val += 1;
+            }
+            if (val >= 10) {
+                val -= 10;
+                carry = true;
+            }
+            else {
+                carry = false;
+            }
+            node.val = val;
+            stackCombined.push(node);
+        }
+        while (!stack2.isEmpty()) {
+            ListNode node = new ListNode();
+            int val = stack2.pop().val;
+            if (carry) {
+                val += 1;
+            }
+            if (val >= 10) {
+                val -= 10;
+                carry = true;
+            }
+            else {
+                carry = false;
+            }
+            node.val = val;
+            stackCombined.push(node);
+        }
+        if (carry) {
+            stackCombined.push(new ListNode(1));
+        }
+        while (!stackCombined.isEmpty()) {
+            temp.next = stackCombined.pop();
+            temp = temp.next;
+        }
+        return combinedList.next;
+        
+    }
+}
