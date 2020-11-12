@@ -1,0 +1,35 @@
+class Solution {
+    public boolean validSquare(int[] p1, int[] p2, int[] p3, int[] p4) {
+        int [][] pointsArr = new int [4][2];
+        pointsArr[0][0] = p1[0];
+        pointsArr[0][1] = p1[1];
+        pointsArr[1][0] = p2[0];
+        pointsArr[1][1] = p2[1];
+        pointsArr[2][0] = p3[0];
+        pointsArr[2][1] = p3[1];
+        pointsArr[3][0] = p4[0];
+        pointsArr[3][1] = p4[1];
+        Arrays.sort(pointsArr, (a,b) -> a[0] == b[0] ? a[1] - b[1] : a[0] - b[0]);
+        //         for (int i = 0; i < 4; ++i) {
+        //     for (int j = 0; j < 2; ++j) {
+        //         System.out.print(pointsArr[i][j] + " ");
+        //     }
+        //     System.out.println();
+        // }
+        if (pointsArr[0][0] == pointsArr[1][0] && pointsArr[0][1] == pointsArr[2][1] && pointsArr[1][1] == pointsArr[3][1] && pointsArr[3][0] == pointsArr[2][0]) {
+            return true;
+        }
+        if (pointsArr[0][0] == pointsArr[1][1] && pointsArr[0][1] == pointsArr[1][0] && pointsArr[2][0] == pointsArr[3][1] && pointsArr[2][1] == pointsArr[3][0]) {
+            return true;
+        }
+        return false;
+    }
+}
+// -1 0 
+// 0 -1 
+// 0 1 
+// 1 0 
+// [0,0]
+// [0,2]
+// [2,0]
+// [2,2]
