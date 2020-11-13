@@ -1,5 +1,6 @@
 class Solution {
     public List<List<Integer>> permuteUnique(int[] nums) {
+        Arrays.sort(nums);
         List<List<Integer>> permutationList = new ArrayList<>();
         getPermutations(permutationList,nums, 0);
         return permutationList;
@@ -14,13 +15,14 @@ class Solution {
             permutationList.add(permutation);
             return;
         }
+        Set<Integer> set = new HashSet<>();
         for (int i = idx; i < nums.length; ++i) {
-            if ( (idx == i) || nums[i] != nums[idx]) {
-                        swap(nums, i, idx);
-            getPermutations(permutationList, nums, idx + 1);
-            swap(nums, i, idx);    
+            if (!set.contains(nums[i])) {
+                swap(nums, i, idx);
+                getPermutations(permutationList, nums, idx + 1);
+                swap(nums, i, idx);    
             }
-
+            set.add(nums[i]);
         }
     }
     
