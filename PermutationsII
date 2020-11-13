@@ -1,23 +1,26 @@
 class Solution {
     public List<List<Integer>> permuteUnique(int[] nums) {
-        List<List<Integer>> permutationList = new Arraylist<>();
-        getPermutations(permutationList, new ArrayList<Integer>(),nums, 0);
+        List<List<Integer>> permutationList = new ArrayList<>();
+        getPermutations(permutationList,nums, 0);
         return permutationList;
     }
     
-    public void getPermutations(List<List<Integer>> permutationList, List<Integer> permutation,int [] nums, int idx) {
+    public void getPermutations(List<List<Integer>> permutationList, int [] nums, int idx) {
         if (idx == nums.length) {
-            List<Integer> perm = new ArrayList<>();
-            for (int i = 0; i < permutation.size(); ++i) {
-                perm.add(permutation.get(i));
+            ArrayList<Integer> permutation = new ArrayList<>();
+            for (int i = 0; i < nums.length; ++i) {
+                permutation.add(nums[i]);
             }
-            permutationList.add(perm);
+            permutationList.add(permutation);
             return;
         }
-        
         for (int i = idx; i < nums.length; ++i) {
-            permutation.
-            getPermutations(permutationList, permutation)
+            if ( (idx == i) || nums[i] != nums[idx]) {
+                        swap(nums, i, idx);
+            getPermutations(permutationList, nums, idx + 1);
+            swap(nums, i, idx);    
+            }
+
         }
     }
     
