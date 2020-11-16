@@ -27,8 +27,12 @@ class Solution {
         if (node.val >= low && node.val <= high) {
             sum += node.val;
         }
-        sum += getSumBST(node.left, low, high);
-        sum += getSumBST(node.right, low, high);
+        if (node.val >= low) {
+            sum += getSumBST(node.left, low, high);
+        }
+        if (node.val <= high) {
+            sum += getSumBST(node.right, low, high);            
+        }
         return sum;
     }
 }
