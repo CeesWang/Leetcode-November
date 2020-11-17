@@ -1,0 +1,45 @@
+class Solution {
+    public int longestMountain(int[] A) {
+        if (A.length < 3) {
+            return 0;
+        }
+        int max = 0;
+        int runningMax = 0;
+        for (int i = 1; i < A.length; ++i) {
+            boolean foundPeak = false;
+            runningMax = 0;
+            if (A[i] <= A[i - 1]) continue;
+            int j = i;
+            while (j < A.length) {  // finding peak
+                if (A[j] > A[j - 1]) {
+                    runningMax++;    
+                }
+                else if (A[j] == A[j -1]) {
+                    break;
+                }
+                else {
+                    runningMax++; 
+                    foundPeak = true;
+                    break;
+                }
+                ++j;
+            }
+            if (foundPeak) {
+                while (j < A.length) {  // finding peak
+                    if (A[j] <  A[j - 1]) {
+                        runningMax++;    
+                    }
+                    else {
+                        max = Math.max(runningMax, max);
+                        break;
+                    }
+                    ++j;
+                }
+                if (j == A.length) {
+                    max = Math.max(runningMax, max);
+                }
+            }            
+        }
+        return max;
+    }
+}
