@@ -6,9 +6,7 @@ class Solution {
         for (int i = 1; i < intervals.length; ++i) {
             int [] prevInterval = mergedList.get(mergedList.size() -1);
             if (intervals[i][0] <= prevInterval[1]) {
-                if (intervals[i][1] > prevInterval[1]) {
-                    prevInterval[1] = intervals[i][1];
-                }
+                prevInterval[1] = Math.max(intervals[i][1],prevInterval[1]);
             }
             else {
                 mergedList.add(new int []{intervals[i][0], intervals[i][1]});
