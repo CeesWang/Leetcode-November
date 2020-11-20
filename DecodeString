@@ -4,15 +4,28 @@ class Solution {
         for (int i = 0; i < s.length(); ++i) {
             char c = s.charAt(i);
             if (Character.isDigit(c)) {
-                                    // System.out.println(c);
                 int freq = 0;
                 while (Character.isDigit(c)) {
-
-                    num *= 10f
-                    num += Character.getNumericValue(c);
-                    c = s.charAt(i++);
+                   freq *= 10;
+                   freq += Character.getNumericValue(c);
+                   c = s.charAt(++i);
                 }
-                System.out.println(num);
+                Stack <Character> stack = new Stack<>();
+                stack.push('[');
+                int idx = i;
+                while (!stack.isEmpty()) { 
+                    c = s.charAt(++i);
+                    if (c == '[') {
+                        stack.push(c);
+                    }
+                    else if (c == ']') {
+                        stack.pop();
+                    }
+                }
+                String helperString = decodeString(s.substring(idx + 1, i));
+                for (int j = 0; j < freq; ++j) {
+                    sb.append(helperString);
+                }
             }
             else {
                 sb.append(c);
