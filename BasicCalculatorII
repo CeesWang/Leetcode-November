@@ -36,14 +36,16 @@ class Solution {
         for (i = sArr.length - 1; i >= 0; --i) {
             sArr[i] = stack.pop();
         }
-        for (i = 0; i < sArr.length - 2; ++i) {
+        for (i = 0; i < sArr.length - 2; i += 2) {
+            System.out.println(sArr[i]);
             int num1 = Integer.parseInt(sArr[i]);
+            
             String operator = sArr[i + 1];
             int num2 = Integer.parseInt(sArr[i + 2]);
             int res = operator.equals("-") ? num1-num2 : num1+num2;
-            ans += res;
+            sArr[i + 2] = String.valueOf(res);
         }
         
-        return ans;
+        return Integer.parseInt(sArr[sArr.length - 1]);
     }
 }
