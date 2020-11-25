@@ -1,0 +1,49 @@
+class Solution {
+    public int calculate(String s) {
+        int ans = 0;
+        int len = s.length();
+        Stack<String> stack = new Stack<>();
+        
+        int i;
+        for (i = 0 ; i < len; ++i) {
+            char c = s.charAt(i);
+            if (c != ' ') {
+                if (Character.isDigit(c)) {
+                    int start = i;
+                    while (i < len && Character.isDigit(s.charAt(i))) {
+                        ++i;
+                    }
+                    String num = s.substring(start, i);
+                    --i;
+                    if (!stack.isEmpty() && (stack.peek().equals("*") || stack.peek().equals("/") )) {
+                        String operator = stack.pop();
+                        int num1 = Integer.parseInt(stack.pop());
+                        int num2 = Integer.parseInt(num);
+                        int res = operator.equals("*") ? num1*num2 : num1/num2;
+                        stack.push(String.valueOf(res));
+                    }
+                    else {
+                        stack.push(num);
+                    }
+                }
+                else { // its an operators
+                    stack.push(String.valueOf(c));
+                }   
+            }
+            // System.out.println(!stack.isEmpty() ? stack.peek() : "");
+        }
+        String [] sArr = new String[stack.size()];
+        for (i = sArr.length - 1; i >= 0; --i) {
+            sArr[i] = stack.pop();
+        }
+        for (i = 0; i < sArr.length - 2; ++i) {
+            int num1 = Integer.parseInt(sArr[i]);
+            String operator = sArr[i + 1];
+            int num2 = Integer.parseInt(sArr[i + 2]);
+            int res = operator.equals("-") ? num1-num2 : num1+num2;
+            ans += res;
+        }
+        
+        return ans;
+    }
+}
