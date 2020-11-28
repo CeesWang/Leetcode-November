@@ -1,0 +1,24 @@
+class Solution {
+    public boolean canPartition(int[] nums) {
+        int totalSum = 0; 
+        for (int num : nums) {
+            totalSum += num;
+        }
+        if ( (totalSum & 1) == 1) {
+            return false;
+        }
+        totalSum /= 2;
+        boolean [] complementArr = new boolean [totalSum + 1];
+        complementArr[0] = true;
+        for (int num : nums) {
+            for (int i = complementArr.length - 1; i >= 0; --i) {
+                if (!complementArr[i]) {
+                    if (i - num >= 0 && complementArr[i - num]) {
+                        complementArr[i] = true;
+                    } 
+                }
+            }
+        }
+        return complementArr[totalSum];
+    }
+}
